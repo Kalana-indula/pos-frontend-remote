@@ -64,7 +64,7 @@ const UpdateCategory = () => {
                 "name": categoryName
             };
             try {
-                const response = await axios.put(`${process.env.REACT_APP_API_URL}/update/categories/${categoryId}`, categoryData);
+                await axios.put(`${process.env.REACT_APP_API_URL}/update/categories/${categoryId}`, categoryData);
 
                 setCategoryName('');
                 setCategoryId('');

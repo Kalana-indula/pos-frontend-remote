@@ -1,5 +1,6 @@
-import {useDebugValue, useState} from "react";
 import axios from "axios";
+import {useState} from "react";
+
 
 const DeleteItem = () => {
     const [serialNumber, setSerialNumber] = useState(null);

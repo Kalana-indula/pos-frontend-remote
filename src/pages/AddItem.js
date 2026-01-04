@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
 
 const AddItem = () => {
@@ -12,8 +11,6 @@ const AddItem = () => {
     const [itemName, setItemName] = useState('');
     const [price, setPrice] = useState('');
     const [categoryId, setCategoryId] = useState('');
-
-    const [item, setItem] = useState(null);
 
     //Assigning values to state variables at they are entered in the field
     const handleSerial = (event) => {
@@ -52,7 +49,6 @@ const AddItem = () => {
                 }
             });
             console.log(response.data);
-            setItem(response.data);
             //resetting form details
             setSerialNumber('');
             setItemName('');

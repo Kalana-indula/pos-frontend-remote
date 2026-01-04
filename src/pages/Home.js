@@ -1,8 +1,7 @@
-import {Link} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
-import axios, {get} from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import {useCallback, useEffect, useRef, useState} from "react";
+import axios from "axios";
 
 const Home = () => {
     const [orders, setOrders] = useState(null);
@@ -24,26 +23,25 @@ const Home = () => {
     const [currentAverage,setCurrentAverage]=useState('');
 
     //Fetching and formatting date and time
-    const updateDateTime = () => {
+
+    const updateDateTime = useCallback(() => {
         const now = new Date();
         setDate(now.toLocaleDateString());
         setTime(now.toLocaleTimeString());
-    }
-
+    },[]);
 
     //Get current day order count
-    const getCurrentDayOrders=async ()=>{
+    const getCurrentDayOrders=useCallback( async ()=>{
         try{
             const response=await axios.get(`${process.env.REACT_APP_API_URL}/orders/today`);
             setDailySales(response.data);
-            console.log(dailySales);
         }catch (error){
             console.log(error.message);
         }
-    }
+    },[]);
 
     //Getting daily sales average
-    const getSalesValue=async ()=>{
+    const getSalesValue=useCallback( async ()=>{
         try{
             const response=await axios.get(`${process.env.REACT_APP_API_URL}/sales/today`);
             setCurrentSalesValue(response.data);
@@ -51,17 +49,17 @@ const Home = () => {
         }catch (error){
             console.log(error.message);
         }
-    }
+    },[]);
 
     //Getting only last 10 orders
-    const getAllLastOrders = async () => {
+    const getAllLastOrders =useCallback( async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/latest/orders`);
             setOrders(response.data);
         } catch (error) {
             console.log(error.message);
         }
-    }
+    },[]);
 
     //Formating date time data to get only date
     const formatDate = (dateTime) => {
@@ -199,7 +197,7 @@ const Home = () => {
 
         //Clean the interval as the component is unmounted
         return () => clearInterval(intervalId);
-    }, []);
+    }, [getAllLastOrders, getCurrentDayOrders, getSalesValue, updateDateTime]);
 
 
     return (

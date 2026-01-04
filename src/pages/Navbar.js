@@ -1,4 +1,3 @@
-import * as Icon from 'react-bootstrap-icons';
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
@@ -55,19 +54,18 @@ const Navbar = () => {
                                 <Link className="nav-link" to={`/actions`}>Actions</Link>
 
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle"
-                                       href="#"
-                                       role="button"
-                                       data-bs-toggle="dropdown"
-                                       aria-expanded="false">
+                                    <button className="nav-link dropdown-toggle btn btn-link"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">
                                         <i className="bi bi-person-circle"></i> User
-                                    </a>
+                                    </button>
                                     <ul className="dropdown-menu">
                                         {isLoggedIn ? (
                                             <li>
-                                                <a className="dropdown-item" href="#" onClick={handleLogout}>
+                                                <button className="dropdown-item" type="button" onClick={handleLogout}>
                                                     <i className="bi bi-box-arrow-left"></i> Logout
-                                                </a>
+                                                </button>
                                             </li>
                                         ) : (
                                             <li>

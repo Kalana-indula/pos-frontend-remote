@@ -1,13 +1,26 @@
-import {useEffect, useState} from "react";
 import axios from "axios";
+import {useCallback, useEffect, useState} from "react";
 
 const AllItems = () => {
     //Setting items to the page using react hook 'useState'
     const [items, setItems] = useState(null);
     const [stockData, setStockData] = useState({});
 
-    const getAllItems = async () => {
+    const getItemStock =useCallback( async (itemId) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/items/${itemId}/stock`);
+            return response.data.stockQty;
+        } catch (error) {
+            if (error.response && error.response.status === 404) {
+                return 0;
+            } else {
+                console.error("An error occurred", error);
+                throw error;
+            }
+        }
+    },[]);
 
+    const getAllItems =useCallback( async () => {
         try{
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/items`);
             console.log(response.data);
@@ -25,27 +38,13 @@ const AllItems = () => {
             console.log(error.message);
         }
 
-    }
-
-    const getItemStock = async (itemId) => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/items/${itemId}/stock`);
-            return response.data.stockQty;
-        } catch (error) {
-            if (error.response && error.response.status === 404) {
-                return 0;
-            } else {
-                console.error("An error occurred", error);
-                throw error;
-            }
-        }
-    }
+    },[getItemStock]);
 
 
     //To load all the items at page loading
     useEffect(() => {
         getAllItems();
-    }, []);
+    }, [getAllItems]);
 
     return (
         <>
