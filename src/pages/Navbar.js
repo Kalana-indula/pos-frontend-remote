@@ -41,7 +41,7 @@ const Navbar = () => {
             <div className="navigation">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="/"><i className="bi bi-house-door-fill"></i></a>
+                        <Link className="navbar-brand" to="/"><i className="bi bi-house-door-fill"></i></Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ const Navbar = () => {
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div className="navbar-nav">
-                                <a className="nav-link active" aria-current="page" href="/">Home</a>
+                                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                                 <Link className="nav-link" to={`/allitems`}>All Items</Link>
                                 <Link className="nav-link" to={`/actions`}>Actions</Link>
 
@@ -69,9 +69,9 @@ const Navbar = () => {
                                             </li>
                                         ) : (
                                             <li>
-                                                <a className="dropdown-item" href="/login/user">
+                                                <Link className="dropdown-item" to="/login/user">
                                                     <i className="bi bi-box-arrow-in-right"></i> Login
-                                                </a>
+                                                </Link>
                                             </li>
                                         )}
                                     </ul>
